@@ -1,0 +1,49 @@
+version: "3"
+services:
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: sspanel
+      MYSQL_USER: ss
+      MYSQL_PASSWORD: pass
+    volumes:
+      - ./mariadb/db.sql:/docker-entrypoint-initdb.d/db.sql
+  ssr:
+    build: shadowsocksr
+    ports:
+      - "1025-1125/tcp"
+      - "1025-1125/udp"
+    volumes:
+      - ./shadowsocksr/user-config.json:/opt/shadowsocksr-manyuser/user-config.json
+      - ./shadowsocksr/userapiconfig.py:/opt/shadowsocksr-manyuser/userapiconfig.py
+      - ./shadowsocksr/usermysql.json:/opt/shadowsocksr-manyuser/usermysql.json
+    command: -s 0.0.0.0 -m aes-256-cfb -o tls1.2_ticket_auth_compatible -O auth_sha1_v2_compatible
+    links:
+      - mysql
+
+  php:
+    build: ss-panel
+    volumes:
+      - ssp-volume:/var/www/html
+      - ./ss-panel/.env:/var/www/html/.env
+    links:
+      - mysql
+
+  nginx:
+    image: nginx:1.11.9-alpine
+    volumes:
+      - ssp-volume:/var/www/html
+      - ./nginx/default.template:/etc/nginx/conf.d/default.template
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=_
+      - NGINX_PORT=80
+    command: /bin/sh -c "envsubst '$$NGINX_HOST $$NGINX_PORT' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    links:
+      - php
+
+
+volumes:
+  ssp-volume:
