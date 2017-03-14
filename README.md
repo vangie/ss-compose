@@ -1,5 +1,7 @@
 # ss-compose
 
+使用 docker-compose 整合了最新的 shadowsocksr 多用户版本和 ss-panelv3，并默认开启了 auth_aes128_sha1 协议和 tls1.2_ticket_auth 混淆。
+
 ## 安装 docker 和 docker-compose
 
 ```
