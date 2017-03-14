@@ -4,6 +4,8 @@
 
 ## 安装 docker 和 docker-compose
 
+以下是在 ubuntu 16.04 系统上安装 docker 和 docker-compose，其他系统请自行调整。
+
 ```
 # 安装 docker
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
