@@ -8,8 +8,8 @@ server {
     root   /var/www/html/public;
 
     location / {
-      index index.php;
-      try_files $uri $uri/ $uri.php$is_args$args;
+        index index.php;
+        try_files $uri $uri/ /index.php$is_args$args;
     }
 
     #error_page  404              /404.html;
