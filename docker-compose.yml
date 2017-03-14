@@ -12,8 +12,8 @@ services:
   ssr:
     build: shadowsocksr
     ports:
-      - "1025-1125/tcp"
-      - "1025-1125/udp"
+      - "1025-1050:1025-1050/tcp"
+      - "1025-1050:1025-1050/udp"
     volumes:
       - ./shadowsocksr/user-config.json:/opt/shadowsocksr-manyuser/user-config.json
       - ./shadowsocksr/userapiconfig.py:/opt/shadowsocksr-manyuser/userapiconfig.py
