@@ -28,6 +28,8 @@ services:
       - ssp-volume:/var/www/html
       - ./ss-panel/env.template:/var/www/html/env.template
     command: /bin/sh -c "envsubst '$$BASE_URL' < /var/www/html/env.template > /var/www/html/.env && php-fpm"
+    environment:
+      BASE_URL: ${BASE_URL}
     links:
       - mysql
 
