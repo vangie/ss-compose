@@ -23,6 +23,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 #### 将当前用户加入 docker 组，免 sudo 执行 docker 命令
+
 ```
 sudo usermod -aG docker $(whoami)
 ```
@@ -33,13 +34,12 @@ sudo usermod -aG docker $(whoami)
 git clone https://github.com/vangie/ss-compose.git
 ```
 
-修改 ss-panel/.env 文件里的 baseUrl 字段
-
 ## 构建 image 并运行 container
 
 ```
 cd ss-compose
-docker-compose up -d
+# 将下面 URL 地址改成你的实际地址
+BASE_URL=http://yourdomain.com docker-compose up -d
 ```
 ## 添加管理员账户
 

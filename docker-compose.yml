@@ -26,7 +26,8 @@ services:
     build: ss-panel
     volumes:
       - ssp-volume:/var/www/html
-      - ./ss-panel/.env:/var/www/html/.env
+      - ./ss-panel/env.template:/var/www/html/env.template
+    command: /bin/sh -c "envsubst '$$BASE_URL' < /var/www/html/env.template > /var/www/html/.env && php-fpm"
     links:
       - mysql
 

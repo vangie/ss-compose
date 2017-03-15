@@ -5,6 +5,13 @@ RUN set -ex \
     && if [ $(wget -qO- ipinfo.io/country) == CN ]; then echo "http://mirrors.aliyun.com/alpine/latest-stable/main/" > /etc/apk/repositories ;fi \
     && apk update && apk upgrade \
     && apk add --no-cache freetype-dev libpng-dev libjpeg-turbo-dev git openssh \
+    \
+    && apk add --update libintl \
+    && apk add --virtual build_deps gettext \
+    && apk add --no-cache --virtual .gettext gettext \
+    && cp /usr/bin/envsubst /usr/local/bin/envsubst \
+    && apk del build_deps \
+    \
     && docker-php-ext-configure gd \
           --with-gd \
           --with-freetype-dir=/usr/include/ \
