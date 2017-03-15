@@ -9,6 +9,10 @@ services:
       MYSQL_PASSWORD: pass
     volumes:
       - ./mariadb/db.sql:/docker-entrypoint-initdb.d/db.sql
+
+  redis:
+    image: redis:3-alpine
+
   ssr:
     build: shadowsocksr
     ports:
@@ -32,6 +36,7 @@ services:
       BASE_URL: ${BASE_URL}
     links:
       - mysql
+      - redis
 
   nginx:
     image: nginx:1.11.9-alpine
