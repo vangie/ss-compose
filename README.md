@@ -33,6 +33,8 @@ sudo usermod -aG docker $(whoami)
 git clone https://github.com/vangie/ss-compose.git
 ```
 
+修改 ss-panel/.env 文件里的 baseUrl 字段
+
 ## 构建 image 并运行 container
 
 ```
