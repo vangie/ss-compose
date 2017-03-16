@@ -1,6 +1,6 @@
 {
-  "host": "mysql",
-  "port": 3306,
+  "host": "127.0.0.1",
+  "port": 13306,
   "user": "ss",
   "password": "pass",
   "db": "sspanel",

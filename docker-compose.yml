@@ -7,6 +7,8 @@ services:
       MYSQL_DATABASE: sspanel
       MYSQL_USER: ss
       MYSQL_PASSWORD: pass
+    ports:
+      - 13306:3306/tcp
     volumes:
       - ./mariadb/db.sql:/docker-entrypoint-initdb.d/db.sql
 
@@ -15,15 +17,13 @@ services:
 
   ssr:
     build: shadowsocksr
-    ports:
-      - "1025-1050:1025-1050/tcp"
-      - "1025-1050:1025-1050/udp"
+    network_mode: host
     volumes:
       - ./shadowsocksr/user-config.json:/opt/shadowsocksr-manyuser/user-config.json
       - ./shadowsocksr/userapiconfig.py:/opt/shadowsocksr-manyuser/userapiconfig.py
       - ./shadowsocksr/usermysql.json:/opt/shadowsocksr-manyuser/usermysql.json
     command: -s 0.0.0.0 -m aes-256-cfb -o tls1.2_ticket_auth_compatible -O auth_sha1_v2_compatible
-    links:
+    depends_on:
       - mysql
 
   php:
