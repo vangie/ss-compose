@@ -44,7 +44,7 @@ BASE_URL=http://yourdomain.com docker-compose up -d
 ## 添加管理员账户
 
 ```
-root@hk-01:~/ss-compose# docker exec -it sscompose_php_1 sh
+root@hk-01:~/ss-compose# docker exec -it ss_php_1 sh
 /var/www/html # php xcat createAdmin
 ```
 
